@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "المنظمة السرية",
+  "short_name": "المنظمة",
+  "description": "شات سري بين صحاب المنظمة",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "dir": "rtl",
+  "lang": "ar",
+  "categories": ["social"],
+  "background_color": "#15131a",
+  "theme_color": "#15131a",
+  "icons": [
+    {"src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
