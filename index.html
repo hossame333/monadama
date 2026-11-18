@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#15131a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>المنظمة السرية</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lalezar&family=Permanent+Marker&family=Rock+Salt&family=Bangers&family=Rubik+Spray+Paint&family=Rubik+Wet+Paint&family=Reem+Kufi&display=swap">
+<style>
+:root{--bg:#15131a;--brick:#2a2530;--pink:#ff2e93;--lime:#b6ff3b;--cyan:#27e1ff;--yellow:#ffd23f;--text:#f4f1ea;--card:#1f1b26;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@font-face{font-family:"GY";src:url(GraffitiYouth-Regular.otf) format("opentype");font-display:swap}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background-color:var(--bg);color:var(--text);font-family:"GY","Lalezar","Permanent Marker",system-ui,sans-serif;letter-spacing:.5px;
+background-image:linear-gradient(rgba(21,19,26,.82),rgba(21,19,26,.9)),
+repeating-linear-gradient(0deg,transparent 0 38px,rgba(255,255,255,.05) 38px 40px),
+repeating-linear-gradient(90deg,transparent 0 78px,rgba(255,255,255,.04) 78px 80px);}
+#app{height:100%;display:flex;flex-direction:column;max-width:760px;margin:0 auto}
+header{padding:14px 16px 8px;text-align:center;position:relative}
+h1{font-family:"Lalezar","Permanent Marker",sans-serif;font-size:clamp(40px,10vw,64px);margin:0;line-height:1;color:var(--lime);
+text-shadow:3px 3px 0 var(--pink),6px 6px 0 #000,0 0 22px rgba(182,255,59,.55);transform:rotate(-3deg);letter-spacing:1px}
+.tag{font-family:"GY","Rock Salt",cursive;font-size:12px;color:var(--cyan);margin-top:10px;text-shadow:0 0 8px var(--cyan)}
+.drip{position:absolute;top:58px;width:7px;border-radius:0 0 6px 6px;background:var(--pink);opacity:.9}
+#log{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:80%;padding:10px 14px;border:3px solid #000;border-radius:6px;box-shadow:4px 4px 0 #000;word-wrap:break-word;overflow-wrap:anywhere;font-size:17px;line-height:1.35}
+.me{align-self:flex-start;background:var(--pink);color:#fff;transform:rotate(-1deg)}
+.them{align-self:flex-end;background:var(--cyan);color:#101018;transform:rotate(1deg)}
+.who{font-family:"GY","Rock Salt",cursive;font-size:10px;opacity:.85;margin-bottom:3px;direction:ltr;text-align:start}
+.t{font-size:10px;opacity:.7;margin-top:4px;direction:ltr}
+.empty{margin:auto;text-align:center;color:var(--yellow);font-size:20px;transform:rotate(-2deg)}
+form{display:flex;gap:8px;padding:10px 12px 14px}
+input{flex:1;min-width:0;background:var(--card);color:var(--text);border:3px solid var(--lime);border-radius:6px;padding:12px;font:inherit;font-size:17px;box-shadow:4px 4px 0 #000;outline:none}
+input:focus{border-color:var(--yellow)}
+button{background:var(--yellow);color:#000;border:3px solid #000;border-radius:6px;padding:0 18px;font:inherit;font-size:18px;cursor:pointer;box-shadow:4px 4px 0 var(--pink)}
+button:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--pink)}
+#gate{position:fixed;inset:0;background:rgba(10,8,14,.96);display:flex;align-items:center;justify-content:center;z-index:5;padding:20px}
+#gate .box{text-align:center;width:100%;max-width:340px}
+#gate p{color:var(--cyan);font-size:16px}
+#gate input{width:100%;margin:8px 0 14px;text-align:center;direction:ltr}
+#gate button{padding:12px 26px}
+#kb{padding:8px 5px 10px;background:#0d0b11;border-top:3px solid var(--lime);display:flex;flex-direction:column;gap:6px;direction:ltr;user-select:none;-webkit-user-select:none}
+.row{display:flex;gap:5px;justify-content:center}
+.k{flex:1;max-width:46px;height:46px;padding:0;font-size:24px;background:var(--card);color:var(--lime);border:2px solid #000;border-radius:6px;box-shadow:2px 2px 0 var(--pink);touch-action:manipulation}
+.k.w{max-width:72px;flex:1.5;background:var(--pink);color:#fff}
+.k.on{background:var(--lime);color:#000}
+.k.sp{max-width:none;flex:5;color:var(--cyan)}
+.k.go{max-width:96px;flex:2;background:var(--yellow);color:#000}
+.aa{padding:0 12px;background:var(--cyan)}
+#fp{padding:8px 12px;background:#0d0b11;border-top:3px solid var(--pink);display:flex;flex-wrap:wrap;gap:8px;direction:ltr}
+#fp button{font-size:20px;padding:8px 12px;box-shadow:2px 2px 0 var(--lime)}
+#fp .sel{background:var(--lime)}
+.eg{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:2px;max-height:190px;overflow-y:auto}
+.k.e{background:none;border:0;box-shadow:none;max-width:none;height:42px;font-size:26px;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.k.t{max-width:none;font-size:20px;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.k.t.on{background:var(--cyan);color:#000}
+.stk{background:none!important;border:0!important;box-shadow:none!important;transform:none!important;padding:4px}
+.stk img{width:150px;height:150px;object-fit:contain;display:block}
+.stk .who,.stk .t{color:var(--text)}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px;max-height:210px;overflow-y:auto}
+.k.s{max-width:none;height:72px;padding:4px}
+.k.s img{width:100%;height:100%;object-fit:contain}
+.k.s.del{border-color:var(--pink)}
+#ed{position:fixed;inset:0;z-index:30;background:rgba(10,8,14,.98);overflow:auto;display:flex;justify-content:center;padding-top:env(safe-area-inset-top,0px)}
+.edbox{width:100%;max-width:380px;padding:12px;display:flex;flex-direction:column;gap:10px;direction:ltr}
+#ec{width:100%;max-width:320px;align-self:center;touch-action:none;border:3px solid var(--lime);background:repeating-conic-gradient(#3a3544 0 25%,#2a2530 0 50%) 0 0/20px 20px}
+.edrow{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;color:var(--cyan);font-size:14px}
+.edrow button{padding:8px 12px;font-size:18px}
+#ed button.sel{background:var(--lime)}
+#ed input[type=range]{padding:0;border:0;box-shadow:none;background:none;flex:1;min-width:80px}
+#ed input[type=color]{padding:0;width:44px;height:40px;flex:none}
+#ed #et{min-width:100px}
+.gerr{color:var(--pink);font-size:14px;min-height:18px}
+#ihint{color:var(--yellow);font-size:13px;margin-top:10px}
+#inst{margin-top:10px;background:var(--lime);padding:8px 14px;font-size:16px}
+.hide{display:none!important}
+#status{font-size:11px;color:var(--yellow);text-align:center;font-family:"Rock Salt",cursive;padding-bottom:2px}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>المنظمة السرية</h1>
+    <div class="tag">SECRET ORG • ghir ana w nta</div>
+    <i class="drip" style="right:22%;height:18px"></i><i class="drip" style="right:47%;height:26px;background:var(--cyan)"></i><i class="drip" style="right:71%;height:14px;background:var(--lime)"></i>
+  </header>
+  <div id="log"><div class="empty">kteb chi 7aja...<br>l7it ma3endha ta wa7ed</div></div>
+  <div id="status"></div>
+  <div id="fp" class="hide"></div>
+  <form id="f" autocomplete="off">
+    <input id="inp" placeholder="kteb rissala..." maxlength="1000" dir="auto" inputmode="none">
+    <button type="button" id="fbtn" class="aa">Aa</button>
+    <button type="submit">صيفط</button>
+  </form>
+  <input type="file" id="sf" accept="image/*" class="hide">
+  <div id="kb"></div>
+</div>
+<div id="ed" class="hide"><div class="edbox">
+<canvas id="ec" width="320" height="320"></canvas>
+<div class="edrow" id="tools"><button data-t="move">🖐</button><button data-sh="sq">▢</button><button data-sh="ci">◯</button><button data-sh="rd">▭</button><button data-t="free">✂</button><button data-t="bg">🪄</button><button data-t="text">Aa</button></div>
+<div class="edrow">zoom <input type="range" id="zm" min="30" max="300" value="100"></div>
+<div class="edrow">bg <input type="range" id="tol" min="5" max="100" value="35"><button id="bgreset">↺</button></div>
+<div class="edrow"><input id="et" placeholder="text..." maxlength="30" dir="auto"><input type="color" id="ecol" value="#ffffff"><input type="range" id="esz" min="16" max="90" value="40"></div>
+<div class="edrow"><button id="eadd">+ Aa</button><button id="edel">🗑 Aa</button><button id="ecancel">✖</button><button id="eok" style="background:var(--lime)">✔ sticker</button></div>
+</div></div>
+<div id="gate">
+  <div class="box">
+    <h1 style="font-size:44px">المنظمة السرية</h1>
+    <div id="lbox"><p>dkhel b compte dyalk</p>
+    <input id="em" type="email" placeholder="email" autocomplete="username">
+    <input id="pw" type="password" placeholder="mot de passe" autocomplete="current-password">
+    <button id="login">دخول</button></div>
+    <div id="nbox" class="hide"><p>chno smitk f l’organisation?</p>
+    <input id="nick" maxlength="16" placeholder="nickname...">
+    <button id="enter">دخول</button></div>
+    <div id="gerr" class="gerr"></div>
+    <button id="inst" class="hide">📲 تحميل التطبيق</button>
+    <div id="ihint"></div>
+  </div>
+</div>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {initializeFirestore,persistentLocalCache,persistentMultipleTabManager,collection,doc,setDoc,deleteDoc,query,orderBy,onSnapshot} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {firebaseConfig} from "./firebase-config.js";
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const fs=initializeFirestore(app,{localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})});
+const fdb={
+  collection:function(n){var c=collection(fs,n);return{
+    orderBy:function(f){return{onSnapshot:function(a,b){return onSnapshot(query(c,orderBy(f)),a,b);}};},
+    onSnapshot:function(a,b){return onSnapshot(c,a,b);}};},
+  doc:function(p){var r=doc(fs,p);return{set:function(d){return setDoc(r,d);},delete:function(){return deleteDoc(r);}};}
+};
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}
+var dp=null,inst=document.getElementById("inst");
+window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;inst.classList.remove("hide");});
+inst.onclick=function(){if(dp){dp.prompt();dp=null;inst.classList.add("hide");}};
+if(/iphone|ipad/i.test(navigator.userAgent)&&!navigator.standalone){document.getElementById("ihint").textContent="iPhone: Safari ← Partager ← Sur l’écran d’accueil";}
+(function(){
+  var log=document.getElementById("log"),inp=document.getElementById("inp"),st=document.getElementById("status");
+  var nick="",uid=null,db=null,col=null,lastDocs=null,stMap={},stDel=false,fontMap={},myFont="gy";
+  var FONTS={gy:["Graffiti Youth","\"GY\""],pm:["Permanent Marker","\"Permanent Marker\""],rs:["Rock Salt","\"Rock Salt\""],ba:["Bangers","\"Bangers\""],sp:["Spray Paint","\"Rubik Spray Paint\""],wp:["Wet Paint","\"Rubik Wet Paint\""],la:["Lalezar","\"Lalezar\""],rk:["Reem Kufi","\"Reem Kufi\""],sy:["Normal","system-ui"]};
+  var EM={"😀": "😀 😁 😂 😃 😄 😅 😆 😇 😈 😉 😊 😋 😌 😍 😎 😏 😐 😑 😒 😓 😔 😕 😖 😗 😘 😙 😚 😛 😜 😝 😞 😟 😠 😡 😢 😣 😤 😥 😦 😧 😨 😩 😪 😫 😬 😭 😮 😯 😰 😱 😲 😳 😴 😵 😶 😷 😸 😹 😺 😻 😼 😽 😾 😿 🙀 🙁 🙂 🙃 🙄 🙅 🙆 🙇 🙈 🙉 🙊 🙋 🙌 🙍 🙎 🙏 🤐 🤑 🤒 🤓 🤔 🤕 🤖 🤗 🤘 🤙 🤚 🤛 🤜 🤝 🤞 🤟 🤠 🤡 🤢 🤣 🤤 🤥 🤦 🤧 🤨 🤩 🤪 🤫 🤬 🤭 🤮 🤯 🥰 🥱 🥲 🥳 🥴 🥵 🥶 🥷 🥸 🥹 🥺 🥻 🥼 🥽 🥾 🥿 🫠 🫡 🫢 🫣 🫤 🫥 🫦 🫧 🫨 🫩 🫰 🫱 🫲 🫳 🫴 🫵 🫶 🫷 🫸", "🌿": "🌀 🌁 🌂 🌃 🌄 🌅 🌆 🌇 🌈 🌉 🌊 🌋 🌌 🌍 🌎 🌏 🌐 🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘 🌙 🌚 🌛 🌜 🌝 🌞 🌟 🌠 🌡 🌤 🌥 🌦 🌧 🌨 🌩 🌪 🌫 🌬 🌭 🌮 🌯 🌰 🌱 🌲 🌳 🌴 🌵 🌶 🌷 🌸 🌹 🌺 🌻 🌼 🌽 🌾 🌿 🍀 🍁 🍂 🍃 🍄 🍅 🍆 🍇 🍈 🍉 🍊 🍋 🍌 🍍 🍎 🍏 🍐 🍑 🍒 🍓 🍔 🍕 🍖 🍗 🍘 🍙 🍚 🍛 🍜 🍝 🍞 🍟 🍠 🍡 🍢 🍣 🍤 🍥 🍦 🍧 🍨 🍩 🍪 🍫 🍬 🍭 🍮 🍯 🍰 🍱 🍲 🍳 🍴 🍵 🍶 🍷 🍸 🍹 🍺 🍻 🍼 🍽 🍾 🍿 🎀 🎁 🎂 🎃 🎄 🎅 🎆 🎇 🎈 🎉 🎊 🎋 🎌 🎍 🎎 🎏 🎐 🎑 🎒 🎓 🎖 🎗 🎙 🎚 🎛 🎞 🎟 🎠 🎡 🎢 🎣 🎤 🎥 🎦 🎧 🎨 🎩 🎪 🎫 🎬 🎭 🎮 🎯 🎰 🎱 🎲 🎳 🎴 🎵 🎶 🎷 🎸 🎹 🎺 🎻 🎼 🎽 🎾 🎿 🏀 🏁 🏂 🏃 🏄 🏅 🏆 🏇 🏈 🏉 🏊 🏋 🏌 🏍 🏎 🏏 🏐 🏑 🏒 🏓 🏔 🏕 🏖 🏗 🏘 🏙 🏚 🏛 🏜 🏝 🏞 🏟 🏠 🏡 🏢 🏣 🏤 🏥 🏦 🏧 🏨 🏩 🏪 🏫 🏬 🏭 🏮 🏯 🏰 🏳 🏴 🏵 🏷 🏸 🏹 🏺 🐀 🐁 🐂 🐃 🐄 🐅 🐆 🐇 🐈 🐉 🐊 🐋 🐌 🐍 🐎 🐏 🐐 🐑 🐒 🐓 🐔 🐕 🐖 🐗 🐘 🐙 🐚 🐛 🐜 🐝 🐞 🐟 🐠 🐡 🐢 🐣 🐤 🐥 🐦 🐧 🐨 🐩 🐪 🐫 🐬 🐭 🐮 🐯 🐰 🐱 🐲 🐳 🐴 🐵 🐶 🐷 🐸 🐹 🐺 🐻 🐼 🐽 🐾 🐿 🦀 🦁 🦂 🦃 🦄 🦅 🦆 🦇 🦈 🦉 🦊 🦋 🦌 🦍 🦎 🦏 🦐 🦑 🦒 🦓 🦔 🦕 🦖 🦗 🦘 🦙 🦚 🦛 🦜 🦝 🦞 🦟 🦠 🦡 🦢 🦣 🦤 🦥 🦦 🦧 🦨 🦩 🦪 🦫 🦬 🦭 🦮 🦯 🪰 🪱 🪲 🪳 🪴 🪵 🪶 🪷 🪸 🪹 🪺 🪻 🪼 🪽 🪾 🪿", "👋": "✊ ✋ ✌ ✍ 👀 👁 👂 👃 👄 👅 👆 👇 👈 👉 👊 👋 👌 👍 👎 👏 👐 👑 👒 👓 👔 👕 👖 👗 👘 👙 👚 👛 👜 👝 👞 👟 👠 👡 👢 👣 👤 👥 👦 👧 👨 👩 👪 👫 👬 👭 👮 👯 👰 👱 👲 👳 👴 👵 👶 👷 👸 👹 👺 👻 👼 👽 👾 👿 💀 💁 💂 💃 💄 💅 💆 💇 💈 💉 💊 💋 💌 💍 💎 💏 💐 💑 💒 💓 💔 💕 💖 💗 💘 💙 💚 💛 💜 💝 💞 💟 💠 💡 💢 💣 💤 💥 💦 💧 💨 💩 💪 🕺 🖐 🖕 🖖 🖤 🦰 🦱 🦲 🦳 🦴 🦵 🦶 🦷 🦸 🦹 🦺 🦻 🦼 🦽 🦾 🦿 🧀 🧁 🧂 🧃 🧄 🧅 🧆 🧇 🧈 🧉 🧊 🧋 🧌 🧍 🧎 🧏 🧐 🧑 🧒 🧓 🧔 🧕 🧖 🧗 🧘 🧙 🧚 🧛 🧜 🧝 🧞 🧟 🧠 🧡 🧢 🧣 🧤 🧥 🧦 🧧 🧨 🧩 🧪 🧫 🧬 🧭 🧮 🧯 🧰 🧱 🧲 🧳 🧴 🧵 🧶 🧷 🧸 🧹 🧺 🧻 🧼 🧽 🧾 🧿", "🎨": "💫 💬 💭 💮 💯 💰 💱 💲 💳 💴 💵 💶 💷 💸 💹 💺 💻 💼 💽 💾 💿 📀 📁 📂 📃 📄 📅 📆 📇 📈 📉 📊 📋 📌 📍 📎 📏 📐 📑 📒 📓 📔 📕 📖 📗 📘 📙 📚 📛 📜 📝 📞 📟 📠 📡 📢 📣 📤 📥 📦 📧 📨 📩 📪 📫 📬 📭 📮 📯 📰 📱 📲 📳 📴 📵 📶 📷 📸 📹 📺 📻 📼 📽 📿 🔀 🔁 🔂 🔃 🔄 🔅 🔆 🔇 🔈 🔉 🔊 🔋 🔌 🔍 🔎 🔏 🔐 🔑 🔒 🔓 🔔 🔕 🔖 🔗 🔘 🔙 🔚 🔛 🔜 🔝 🔞 🔟 🔠 🔡 🔢 🔣 🔤 🔥 🔦 🔧 🔨 🔩 🔪 🔫 🔬 🔭 🔮 🔯 🔰 🔱 🔲 🔳 🔴 🔵 🔶 🔷 🔸 🔹 🔺 🔻 🔼 🔽 🕉 🕊 🕋 🕌 🕍 🕎 🕐 🕑 🕒 🕓 🕔 🕕 🕖 🕗 🕘 🕙 🕚 🕛 🕜 🕝 🕞 🕟 🕠 🕡 🕢 🕣 🕤 🕥 🕦 🕧 🕯 🕰 🕳 🕴 🕵 🕶 🕷 🕸 🕹 🖇 🖊 🖋 🖌 🖍 🖥 🖨 🖱 🖲 🖼 🗂 🗃 🗄 🗑 🗒 🗓 🗜 🗝 🗞 🗡 🗣 🗨 🗯 🗳 🗺 🗻 🗼 🗽 🗾 🗿", "🚗": "🚀 🚁 🚂 🚃 🚄 🚅 🚆 🚇 🚈 🚉 🚊 🚋 🚌 🚍 🚎 🚏 🚐 🚑 🚒 🚓 🚔 🚕 🚖 🚗 🚘 🚙 🚚 🚛 🚜 🚝 🚞 🚟 🚠 🚡 🚢 🚣 🚤 🚥 🚦 🚧 🚨 🚩 🚪 🚫 🚬 🚭 🚮 🚯 🚰 🚱 🚲 🚳 🚴 🚵 🚶 🚷 🚸 🚹 🚺 🚻 🚼 🚽 🚾 🚿 🛀 🛁 🛂 🛃 🛄 🛅 🛋 🛌 🛍 🛎 🛏 🛐 🛑 🛒 🛕 🛖 🛗 🛜 🛝 🛞 🛟 🛠 🛡 🛢 🛣 🛤 🛥 🛩 🛫 🛬 🛰 🛳 🛴 🛵 🛶 🛷 🛸 🛹 🛺 🛻 🛼", "❤": "‼ ⁉ ™ ℹ ↔ ↕ ↖ ↗ ↘ ↙ ↩ ↪ ⌚ ⌛ ⌨ ⏏ ⏩ ⏪ ⏫ ⏬ ⏭ ⏮ ⏯ ⏰ ⏱ ⏲ ⏳ ⏸ ⏹ ⏺ Ⓜ ▪ ▫ ▶ ◀ ◻ ◼ ◽ ◾ ☀ ☁ ☂ ☃ ☄ ☎ ☑ ☔ ☕ ☘ ☝ ☠ ☢ ☣ ☦ ☪ ☮ ☯ ☸ ☹ ☺ ♀ ♂ ♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓ ♟ ♠ ♣ ♥ ♦ ♨ ♻ ♾ ♿ ⚒ ⚓ ⚔ ⚕ ⚖ ⚗ ⚙ ⚛ ⚜ ⚠ ⚡ ⚧ ⚪ ⚫ ⚰ ⚱ ⚽ ⚾ ⛄ ⛅ ⛈ ⛎ ⛏ ⛑ ⛓ ⛔ ⛩ ⛪ ⛰ ⛱ ⛲ ⛳ ⛴ ⛵ ⛷ ⛸ ⛹ ⛺ ⛽ ✂ ✅ ✈ ✉ ✏ ✒ ✔ ✖ ✝ ✡ ✨ ✳ ✴ ❄ ❇ ❌ ❎ ❓ ❔ ❕ ❗ ❣ ❤ ➕ ➖ ➗ ➡ ➰ ➿ ⤴ ⤵ ⬅ ⬆ ⬇ ⬛ ⬜ ⭐ ⭕ 🅰 🅱 🅾 🅿 🆎 🆑 🆒 🆓 🆔 🆕 🆖 🆗 🆘 🆙 🆚 🈁 🈂 🈚 🈯 🈲 🈳 🈴 🈵 🈶 🈷 🈸 🈹 🈺 🉐 🉑 🟠 🟡 🟢 🟣 🟤 🟥 🟦 🟧 🟨 🟩 🟪 🟫 🟰 🩰 🩱 🩲 🩳 🩴 🩵 🩶 🩷 🩸 🩹 🩺 🩻 🩼 🪀 🪁 🪂 🪃 🪄 🪅 🪆 🪇 🪈 🪉 🪏 🪐 🪑 🪒 🪓 🪔 🪕 🪖 🪗 🪘 🪙 🪚 🪛 🪜 🪝 🪞 🪟 🪠 🪡 🪢 🪣 🪤 🪥 🪦 🪧 🪨 🪩 🪪 🪫 🪬 🪭 🪮 🪯", "✨": "〰 〽 ㊗ ㊙ 🀄 🃏 🤌 🤍 🤎 🤏 🤰 🤱 🤲 🤳 🤴 🤵 🤶 🤷 🤸 🤹 🤺 🤼 🤽 🤾 🤿 🥀 🥁 🥂 🥃 🥄 🥅 🥇 🥈 🥉 🥊 🥋 🥌 🥍 🥎 🥏 🥐 🥑 🥒 🥓 🥔 🥕 🥖 🥗 🥘 🥙 🥚 🥛 🥜 🥝 🥞 🥟 🥠 🥡 🥢 🥣 🥤 🥥 🥦 🥧 🥨 🥩 🥪 🥫 🥬 🥭 🥮 🥯 🫀 🫁 🫂 🫃 🫄 🫅 🫆 🫎 🫏 🫐 🫑 🫒 🫓 🫔 🫕 🫖 🫗 🫘 🫙 🫚 🫛 🫜 🫟 󾓥 󾓦 󾓧 󾓨 󾓩 󾓪 󾓫 󾓬 󾓭 󾓮 󾠬 󾠮 󾠯 󾠰 󾠱 󾠲 󾠳 󾠴 󾠵 󾠶 󾠷", "🏳": "🇦🇨 🇦🇩 🇦🇪 🇦🇫 🇦🇬 🇦🇮 🇦🇱 🇦🇲 🇦🇴 🇦🇶 🇦🇷 🇦🇸 🇦🇹 🇦🇺 🇦🇼 🇦🇽 🇦🇿 🇧🇦 🇧🇧 🇧🇩 🇧🇪 🇧🇫 🇧🇬 🇧🇭 🇧🇮 🇧🇯 🇧🇱 🇧🇲 🇧🇳 🇧🇴 🇧🇶 🇧🇷 🇧🇸 🇧🇹 🇧🇻 🇧🇼 🇧🇾 🇧🇿 🇨🇦 🇨🇨 🇨🇩 🇨🇫 🇨🇬 🇨🇭 🇨🇮 🇨🇰 🇨🇱 🇨🇲 🇨🇳 🇨🇴 🇨🇵 🇨🇶 🇨🇷 🇨🇺 🇨🇻 🇨🇼 🇨🇽 🇨🇾 🇨🇿 🇩🇪 🇩🇬 🇩🇯 🇩🇰 🇩🇲 🇩🇴 🇩🇿 🇪🇦 🇪🇨 🇪🇪 🇪🇬 🇪🇭 🇪🇷 🇪🇸 🇪🇹 🇪🇺 🇫🇮 🇫🇯 🇫🇰 🇫🇲 🇫🇴 🇫🇷 🇬🇦 🇬🇧 🇬🇩 🇬🇪 🇬🇫 🇬🇬 🇬🇭 🇬🇮 🇬🇱 🇬🇲 🇬🇳 🇬🇵 🇬🇶 🇬🇷 🇬🇸 🇬🇹 🇬🇺 🇬🇼 🇬🇾 🇭🇰 🇭🇲 🇭🇳 🇭🇷 🇭🇹 🇭🇺 🇮🇨 🇮🇩 🇮🇪 🇮🇱 🇮🇲 🇮🇳 🇮🇴 🇮🇶 🇮🇷 🇮🇸 🇮🇹 🇯🇪 🇯🇲 🇯🇴 🇯🇵 🇰🇪 🇰🇬 🇰🇭 🇰🇮 🇰🇲 🇰🇳 🇰🇵 🇰🇷 🇰🇼 🇰🇾 🇰🇿 🇱🇦 🇱🇧 🇱🇨 🇱🇮 🇱🇰 🇱🇷 🇱🇸 🇱🇹 🇱🇺 🇱🇻 🇱🇾 🇲🇦 🇲🇨 🇲🇩 🇲🇪 🇲🇫 🇲🇬 🇲🇭 🇲🇰 🇲🇱 🇲🇲 🇲🇳 🇲🇴 🇲🇵 🇲🇶 🇲🇷 🇲🇸 🇲🇹 🇲🇺 🇲🇻 🇲🇼 🇲🇽 🇲🇾 🇲🇿 🇳🇦 🇳🇨 🇳🇪 🇳🇫 🇳🇬 🇳🇮 🇳🇱 🇳🇴 🇳🇵 🇳🇷 🇳🇺 🇳🇿 🇴🇲 🇵🇦 🇵🇪 🇵🇫 🇵🇬 🇵🇭 🇵🇰 🇵🇱 🇵🇲 🇵🇳 🇵🇷 🇵🇸 🇵🇹 🇵🇼 🇵🇾 🇶🇦 🇷🇪 🇷🇴 🇷🇸 🇷🇺 🇷🇼 🇸🇦 🇸🇧 🇸🇨 🇸🇩 🇸🇪 🇸🇬 🇸🇭 🇸🇮 🇸🇯 🇸🇰 🇸🇱 🇸🇲 🇸🇳 🇸🇴 🇸🇷 🇸🇸 🇸🇹 🇸🇻 🇸🇽 🇸🇾 🇸🇿 🇹🇦 🇹🇨 🇹🇩 🇹🇫 🇹🇬 🇹🇭 🇹🇯 🇹🇰 🇹🇱 🇹🇲 🇹🇳 🇹🇴 🇹🇷 🇹🇹 🇹🇻 🇹🇼 🇹🇿 🇺🇦 🇺🇬 🇺🇲 🇺🇳 🇺🇸 🇺🇾 🇺🇿 🇻🇦 🇻🇨 🇻🇪 🇻🇬 🇻🇮 🇻🇳 🇻🇺 🇼🇫 🇼🇸 🇽🇰 🇾🇪 🇾🇹 🇿🇦 🇿🇲 🇿🇼", "👨‍👩‍👧": "↔‍🙂 ↕‍🙂 ☠‍🏴 ♀‍⛹ ♀‍🏃 ♀‍🏄 ♀‍🏊 ♀‍🏋 ♀‍🏌 ♀‍👮 ♀‍👯 ♀‍👰 ♀‍👱 ♀‍👳 ♀‍👷 ♀‍💁 ♀‍💂 ♀‍💆 ♀‍💇 ♀‍🕵 ♀‍🙅 ♀‍🙆 ♀‍🙇 ♀‍🙋 ♀‍🙍 ♀‍🙎 ♀‍🚣 ♀‍🚴 ♀‍🚵 ♀‍🚶 ♀‍🤦 ♀‍🤵 ♀‍🤷 ♀‍🤸 ♀‍🤹 ♀‍🤼 ♀‍🤽 ♀‍🤾 ♀‍🦸 ♀‍🦹 ♀‍🧍 ♀‍🧎 ♀‍🧏 ♀‍🧔 ♀‍🧖 ♀‍🧗 ♀‍🧘 ♀‍🧙 ♀‍🧚 ♀‍🧛 ♀‍🧜 ♀‍🧝 ♀‍🧞 ♀‍🧟 ♂‍⛹ ♂‍🏃 ♂‍🏄 ♂‍🏊 ♂‍🏋 ♂‍🏌 ♂‍👮 ♂‍👯 ♂‍👰 ♂‍👱 ♂‍👳 ♂‍👷 ♂‍💁 ♂‍💂 ♂‍💆 ♂‍💇 ♂‍🕵 ♂‍🙅 ♂‍🙆 ♂‍🙇 ♂‍🙋 ♂‍🙍 ♂‍🙎 ♂‍🚣 ♂‍🚴 ♂‍🚵 ♂‍🚶 ♂‍🤦 ♂‍🤵 ♂‍🤷 ♂‍🤸 ♂‍🤹 ♂‍🤼 ♂‍🤽 ♂‍🤾 ♂‍🦸 ♂‍🦹 ♂‍🧍 ♂‍🧎 ♂‍🧏 ♂‍🧔 ♂‍🧖 ♂‍🧗 ♂‍🧘 ♂‍🧙 ♂‍🧚 ♂‍🧛 ♂‍🧜 ♂‍🧝 ♂‍🧞 ♂‍🧟 ⚕‍👨 ⚕‍👩 ⚕‍🧑 ⚖‍👨 ⚖‍👩 ⚖‍🧑 ⚧‍🏳 ⛓‍💥 ⛹‍♀ ⛹‍♂ ✈‍👨 ✈‍👩 ✈‍🧑 ❄‍🐻 ❤‍🔥 ❤‍🩹 ➡‍♀‍🏃 ➡‍♀‍🚶 ➡‍♀‍🧎 ➡‍♂‍🏃 ➡‍♂‍🚶 ➡‍♂‍🧎 ➡‍🏃 ➡‍🚶 ➡‍🦯‍👨 ➡‍🦯‍👩 ➡‍🦯‍🧑 ➡‍🦼‍👨 ➡‍🦼‍👩 ➡‍🦼‍🧑 ➡‍🦽‍👨 ➡‍🦽‍👩 ➡‍🦽‍🧑 ➡‍🧎 ⬛‍🐈 ⬛‍🐦 🌈‍🏳 🌫‍😶 🌾‍👨 🌾‍👩 🌾‍🧑 🍄‍🟫 🍋‍🟩 🍳‍👨 🍳‍👩 🍳‍🧑 🍼‍👨 🍼‍👩 🍼‍🧑 🎄‍🧑 🎓‍👨 🎓‍👩 🎓‍🧑 🎤‍👨 🎤‍👩 🎤‍🧑 🎨‍👨 🎨‍👩 🎨‍🧑 🏃‍♀ 🏃‍♀‍➡ 🏃‍♂ 🏃‍♂‍➡ 🏃‍➡ 🏄‍♀ 🏄‍♂ 🏊‍♀ 🏊‍♂ 🏋‍♀ 🏋‍♂ 🏌‍♀ 🏌‍♂ 🏫‍👨 🏫‍👩 🏫‍🧑 🏭‍👨 🏭‍👩 🏭‍🧑 🏳‍⚧ 🏳‍🌈 🏴‍☠ 🐈‍⬛ 🐕‍🦺 🐦‍⬛ 🐦‍🔥 🐻‍❄ 👁‍🗨 👦‍👦‍👨 👦‍👦‍👨‍👨 👦‍👦‍👩 👦‍👦‍👩‍👨 👦‍👦‍👩‍👩 👦‍👧‍👨 👦‍👧‍👨‍👨 👦‍👧‍👩 👦‍👧‍👩‍👨 👦‍👧‍👩‍👩 👦‍👨 👦‍👨‍👨 👦‍👩 👦‍👩‍👨 👦‍👩‍👩 👧‍👧‍👨 👧‍👧‍👨‍👨 👧‍👧‍👩 👧‍👧‍👩‍👨 👧‍👧‍👩‍👩 👧‍👨 👧‍👨‍👨 👧‍👩 👧‍👩‍👨 👧‍👩‍👩 👨‍⚕ 👨‍⚖ 👨‍✈ 👨‍❤‍👨 👨‍❤‍👩 👨‍❤‍💋‍👨 👨‍🌾 👨‍🍳 👨‍🍼 👨‍🎓 👨‍🎤 👨‍🎨 👨‍🏫 👨‍🏭 👨‍👦 👨‍👦‍👦 👨‍👧 👨‍👧‍👦 👨‍👧‍👧 👨‍👨‍👦 👨‍👨‍👦‍👦 👨‍👨‍👧 👨‍👨‍👧‍👦 👨‍👨‍👧‍👧 👨‍👩‍👦 👨‍👩‍👦‍👦 👨‍👩‍👧 👨‍👩‍👧‍👦 👨‍👩‍👧‍👧 👨‍💋‍❤‍👨 👨‍💋‍❤‍👩 👨‍💻 👨‍💼 👨‍🔧 👨‍🔬 👨‍🚀 👨‍🚒 👨‍🦯 👨‍🦯‍➡ 👨‍🦰 👨‍🦱 👨‍🦲 👨‍🦳 👨‍🦼 👨‍🦼‍➡ 👨‍🦽 👨‍🦽‍➡ 👩‍⚕ 👩‍⚖ 👩‍✈ 👩‍❤‍👨 👩‍❤‍👩 👩‍❤‍💋‍👨 👩‍❤‍💋‍👩 👩‍🌾 👩‍🍳 👩‍🍼 👩‍🎓 👩‍🎤 👩‍🎨 👩‍🏫 👩‍🏭 👩‍👦 👩‍👦‍👦 👩‍👧 👩‍👧‍👦 👩‍👧‍👧 👩‍👩‍👦 👩‍👩‍👦‍👦 👩‍👩‍👧 👩‍👩‍👧‍👦 👩‍👩‍👧‍👧 👩‍💋‍❤‍👩 👩‍💻 👩‍💼 👩‍🔧 👩‍🔬 👩‍🚀 👩‍🚒 👩‍🦯 👩‍🦯‍➡ 👩‍🦰 👩‍🦱 👩‍🦲 👩‍🦳 👩‍🦼 👩‍🦼‍➡ 👩‍🦽 👩‍🦽‍➡ 👮‍♀ 👮‍♂ 👯‍♀ 👯‍♂ 👰‍♀ 👰‍♂ 👱‍♀ 👱‍♂ 👳‍♀ 👳‍♂ 👷‍♀ 👷‍♂ 💁‍♀ 💁‍♂ 💂‍♀ 💂‍♂ 💆‍♀ 💆‍♂ 💇‍♀ 💇‍♂ 💥‍⛓ 💨‍😮 💫‍😵 💻‍👨 💻‍👩 💻‍🧑 💼‍👨 💼‍👩 💼‍🧑 🔥‍❤ 🔥‍🐦 🔧‍👨 🔧‍👩 🔧‍🧑 🔬‍👨 🔬‍👩 🔬‍🧑 🕵‍♀ 🕵‍♂ 🗨‍👁 😮‍💨 😵‍💫 😶‍🌫 🙂‍↔ 🙂‍↕ 🙅‍♀ 🙅‍♂ 🙆‍♀ 🙆‍♂ 🙇‍♀ 🙇‍♂ 🙋‍♀ 🙋‍♂ 🙍‍♀ 🙍‍♂ 🙎‍♀ 🙎‍♂ 🚀‍👨 🚀‍👩 🚀‍🧑 🚒‍👨 🚒‍👩 🚒‍🧑 🚣‍♀ 🚣‍♂ 🚴‍♀ 🚴‍♂ 🚵‍♀ 🚵‍♂ 🚶‍♀ 🚶‍♀‍➡ 🚶‍♂ 🚶‍♂‍➡ 🚶‍➡ 🟩‍🍋 🟫‍🍄 🤦‍♀ 🤦‍♂ 🤵‍♀ 🤵‍♂ 🤷‍♀ 🤷‍♂ 🤸‍♀ 🤸‍♂ 🤹‍♀ 🤹‍♂ 🤼‍♀ 🤼‍♂ 🤽‍♀ 🤽‍♂ 🤾‍♀ 🤾‍♂ 🦯‍👨 🦯‍👩 🦯‍🧑 🦰‍👨 🦰‍👩 🦰‍🧑 🦱‍👨 🦱‍👩 🦱‍🧑 🦲‍👨 🦲‍👩 🦲‍🧑 🦳‍👨 🦳‍👩 🦳‍🧑 🦸‍♀ 🦸‍♂ 🦹‍♀ 🦹‍♂ 🦺‍🐕 🦼‍👨 🦼‍👩 🦼‍🧑 🦽‍👨 🦽‍👩 🦽‍🧑 🧍‍♀ 🧍‍♂ 🧎‍♀ 🧎‍♀‍➡ 🧎‍♂ 🧎‍♂‍➡ 🧎‍➡ 🧏‍♀ 🧏‍♂ 🧑‍⚕ 🧑‍⚖ 🧑‍✈ 🧑‍🌾 🧑‍🍳 🧑‍🍼 🧑‍🎄 🧑‍🎓 🧑‍🎤 🧑‍🎨 🧑‍🏫 🧑‍🏭 🧑‍💻 🧑‍💼 🧑‍🔧 🧑‍🔬 🧑‍🚀 🧑‍🚒 🧑‍🤝‍🧑 🧑‍🦯 🧑‍🦯‍➡ 🧑‍🦰 🧑‍🦱 🧑‍🦲 🧑‍🦳 🧑‍🦼 🧑‍🦼‍➡ 🧑‍🦽 🧑‍🦽‍➡ 🧑‍🧑‍🧒 🧑‍🧑‍🧒‍🧒 🧑‍🧒 🧑‍🧒‍🧒 🧒‍🧑 🧒‍🧑‍🧑 🧒‍🧒‍🧑 🧒‍🧒‍🧑‍🧑 🧔‍♀ 🧔‍♂ 🧖‍♀ 🧖‍♂ 🧗‍♀ 🧗‍♂ 🧘‍♀ 🧘‍♂ 🧙‍♀ 🧙‍♂ 🧚‍♀ 🧚‍♂ 🧛‍♀ 🧛‍♂ 🧜‍♀ 🧜‍♂ 🧝‍♀ 🧝‍♂ 🧞‍♀ 🧞‍♂ 🧟‍♀ 🧟‍♂ 🩹‍❤"},etab="😀";
+  try{myFont=localStorage.getItem("so_font")||"gy";}catch(e){}
+  function fam(u){var k=(u===uid?myFont:fontMap[u])||"gy";return (FONTS[k]||FONTS.gy)[1]+",\"Lalezar\",sans-serif";}
+  try{nick=localStorage.getItem("so_nick")||"";}catch(e){}
+  function setStatus(t){st.textContent=t||"";}
+  function fmt(ts){var d=new Date(ts);return d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});}
+  function render(docs){
+    log.textContent="";
+    if(!docs.length){var e=document.createElement("div");e.className="empty";e.textContent="kteb chi 7aja... l7it ma3endha ta wa7ed";log.appendChild(e);return;}
+    docs.forEach(function(s){
+      var m=s.data(); if(!m) return;
+      var d=document.createElement("div");d.className="msg "+(m.uid===uid?"me":"them");d.style.fontFamily=fam(m.uid);
+      var w=document.createElement("div");w.className="who";w.textContent=m.nick||"???";
+      var b=document.createElement("div");if(m.sid){d.classList.add("stk");var im=document.createElement("img");var sd=stMap[m.sid];if(sd){im.src=sd.img;}b.appendChild(im);}else{b.textContent=m.text||"";}
+      var t=document.createElement("div");t.className="t";t.textContent=fmt(m.ts||Date.now());
+      d.appendChild(w);d.appendChild(b);d.appendChild(t);log.appendChild(d);
+    });
+    log.scrollTop=log.scrollHeight;
+  }
+  async function connect(){
+    setStatus("kan connecti...");
+    var timer=setTimeout(function(){setStatus("ma t-connectach: t2akked bli dakhel b compte dyalk");},10000);
+    try{
+      db=fdb;uid=auth.currentUser?auth.currentUser.uid:null;col=db.collection("messages");
+      db.collection("stickers").onSnapshot(function(sn){stMap={};sn.docs.forEach(function(x){var d=x.data();if(d)stMap[x.id]=d;});if(lastDocs)render(lastDocs);if(mode==="s")build();},function(){});
+      db.collection("fonts").onSnapshot(function(sn){fontMap={};sn.docs.forEach(function(x){var d=x.data();if(d)fontMap[x.id]=d.k;});if(lastDocs)render(lastDocs);},function(){});
+      col.orderBy("ts").onSnapshot(function(snap){clearTimeout(timer);setStatus("");lastDocs=snap.docs;render(lastDocs);},
+        function(){clearTimeout(timer);setStatus("khata2 f connexion");});
+    }catch(e){clearTimeout(timer);setStatus("khata2: "+(e&&e.message||"connexion"));}
+  }
+  function start(){
+    if(!nick) return;
+    try{localStorage.setItem("so_nick",nick);}catch(e){}
+    document.getElementById("gate").classList.add("hide");
+    connect();inp.focus();
+  }
+  document.getElementById("enter").onclick=function(){
+    var v=document.getElementById("nick").value.trim();if(!v)return;nick=v;start();
+  };
+  document.getElementById("nick").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();document.getElementById("enter").click();}});
+  document.getElementById("f").addEventListener("submit",async function(e){
+    e.preventDefault();
+    var text=inp.value.trim();if(!text||!db)return;
+    inp.value="";
+    var ts=Date.now();
+    try{await db.doc("messages/"+ts+"-"+Math.random().toString(36).slice(2,7)).set({text:text,nick:nick,uid:uid,ts:ts});}
+    catch(err){setStatus("ma tsayfetch: t2akked bli 3endk l7a9 tkteb");inp.value=text;}
+  });
+  function $(i){return document.getElementById(i);}
+  var ed=$("ed"),ec=$("ec"),ex=ec.getContext("2d"),bc=document.createElement("canvas"),mc=document.createElement("canvas");
+  bc.width=bc.height=mc.width=mc.height=320;
+  var bx=bc.getContext("2d",{willReadFrequently:true}),mx=mc.getContext("2d");
+  var eim=null,zoom=1,ox=0,oy=0,shape="sq",fpts=[],drawing=false,texts=[],tsel=-1,seeds=[],bgAuto=false,tool="move",last=null;
+  function geo(){var k=Math.min(320/eim.width,320/eim.height)*zoom,w=eim.width*k,h=eim.height*k;return {x:(320-w)/2+ox,y:(320-h)/2+oy,w:w,h:h};}
+  function cl(v){return Math.max(0,Math.min(319,Math.round(v)));}
+  function removeBg(g){
+    var d=bx.getImageData(0,0,320,320),a=d.data,thr=parseInt($("tol").value,10)*3,st=new Int32Array(4*320*320),seen=new Uint8Array(320*320),ss=seeds.slice();
+    if(bgAuto){ss.push([cl(g.x+2),cl(g.y+2)],[cl(g.x+g.w-3),cl(g.y+2)],[cl(g.x+2),cl(g.y+g.h-3)],[cl(g.x+g.w-3),cl(g.y+g.h-3)]);}
+    ss.forEach(function(p){
+      var px=cl(p[0]),py=cl(p[1]),i0=(py*320+px)*4;if(a[i0+3]===0)return;
+      var r=a[i0],gg=a[i0+1],b=a[i0+2],n=0;st[n++]=py*320+px;
+      while(n){
+        var q=st[--n];if(seen[q])continue;seen[q]=1;var i=q*4;
+        if(a[i+3]===0)continue;
+        if(Math.abs(a[i]-r)+Math.abs(a[i+1]-gg)+Math.abs(a[i+2]-b)>thr)continue;
+        a[i+3]=0;var x=q%320,y=(q/320)|0;
+        if(x>0)st[n++]=q-1;if(x<319)st[n++]=q+1;if(y>0)st[n++]=q-320;if(y<319)st[n++]=q+320;
+      }
+    });
+    bx.putImageData(d,0,0);
+  }
+  function render(final){
+    if(!eim)return;var g=geo();
+    bx.globalCompositeOperation="source-over";bx.clearRect(0,0,320,320);bx.drawImage(eim,g.x,g.y,g.w,g.h);
+    if(bgAuto||seeds.length)removeBg(g);
+    if(shape!=="sq"&&!(shape==="free"&&fpts.length<3)){
+      mx.clearRect(0,0,320,320);mx.fillStyle="#000";mx.beginPath();
+      if(shape==="ci")mx.arc(160,160,152,0,7);
+      else if(shape==="rd"){if(mx.roundRect)mx.roundRect(8,8,304,304,60);else mx.rect(8,8,304,304);}
+      else{fpts.forEach(function(p,i){if(i)mx.lineTo(p[0],p[1]);else mx.moveTo(p[0],p[1]);});mx.closePath();}
+      mx.fill();bx.globalCompositeOperation="destination-in";bx.drawImage(mc,0,0);bx.globalCompositeOperation="source-over";
+    }
+    ex.clearRect(0,0,320,320);ex.drawImage(bc,0,0);
+    ex.textAlign="center";ex.textBaseline="middle";ex.lineJoin="round";
+    texts.forEach(function(t){ex.font=t.s+"px "+fam(uid);ex.lineWidth=t.s/5;ex.strokeStyle="#000";ex.strokeText(t.t,t.x,t.y);ex.fillStyle=t.c;ex.fillText(t.t,t.x,t.y);});
+    if(!final&&drawing&&fpts.length>1){ex.strokeStyle="#b6ff3b";ex.lineWidth=3;ex.setLineDash([8,6]);ex.beginPath();fpts.forEach(function(p,i){if(i)ex.lineTo(p[0],p[1]);else ex.moveTo(p[0],p[1]);});ex.stroke();ex.setLineDash([]);}
+  }
+  function sync(){Array.prototype.forEach.call($("tools").children,function(b){
+    b.classList.toggle("sel",(b.dataset.t&&b.dataset.t===tool)||(b.dataset.sh&&b.dataset.sh===shape&&tool==="move"));});}
+  function openEditor(im){
+    eim=im;zoom=1;ox=oy=0;shape="sq";fpts=[];drawing=false;texts=[];tsel=-1;seeds=[];bgAuto=false;tool="move";last=null;
+    $("zm").value=100;$("et").value="";ed.classList.remove("hide");sync();render();
+  }
+  function cp(e){var r=ec.getBoundingClientRect();return [(e.clientX-r.left)*320/r.width,(e.clientY-r.top)*320/r.height];}
+  ec.addEventListener("pointerdown",function(e){
+    e.preventDefault();try{ec.setPointerCapture(e.pointerId);}catch(x){}
+    var p=cp(e);last=p;
+    if(tool==="bg"){seeds.push([cl(p[0]),cl(p[1])]);render();}
+    else if(tool==="free"){shape="sq";fpts=[p];drawing=true;render();}
+    else if(tool==="text"&&texts.length){var bd=1e9;texts.forEach(function(t,i){var dd=Math.hypot(t.x-p[0],t.y-p[1]);if(dd<bd){bd=dd;tsel=i;}});}
+  });
+  ec.addEventListener("pointermove",function(e){
+    if(!last)return;var p=cp(e);
+    if(tool==="move"){ox+=p[0]-last[0];oy+=p[1]-last[1];render();}
+    else if(tool==="free"&&drawing){fpts.push(p);render();}
+    else if(tool==="text"&&tsel>=0){texts[tsel].x+=p[0]-last[0];texts[tsel].y+=p[1]-last[1];render();}
+    last=p;
+  });
+  function up(){
+    last=null;
+    if(tool==="free"&&drawing){drawing=false;if(fpts.length>=3){shape="free";}else{fpts=[];}tool="move";sync();render();}
+  }
+  ec.addEventListener("pointerup",up);ec.addEventListener("pointercancel",up);
+  $("tools").addEventListener("click",function(e){
+    var b=e.target.closest("button");if(!b)return;
+    if(b.dataset.sh){shape=b.dataset.sh;tool="move";}
+    else{tool=b.dataset.t;if(tool==="bg")bgAuto=true;}
+    sync();render();
+  });
+  $("zm").oninput=function(){zoom=this.value/100;render();};
+  $("tol").oninput=function(){render();};
+  $("bgreset").onclick=function(){seeds=[];bgAuto=false;render();};
+  $("eadd").onclick=function(){
+    var v=$("et").value.trim();if(!v)return;
+    texts.push({t:v,x:160,y:160,s:parseInt($("esz").value,10),c:$("ecol").value});tsel=texts.length-1;
+    $("et").value="";tool="text";sync();render();
+  };
+  $("edel").onclick=function(){if(tsel>=0){texts.splice(tsel,1);tsel=texts.length-1;render();}};
+  $("esz").oninput=function(){if(tsel>=0){texts[tsel].s=parseInt(this.value,10);render();}};
+  $("ecol").oninput=function(){if(tsel>=0){texts[tsel].c=this.value;render();}};
+  $("ecancel").onclick=function(){ed.classList.add("hide");eim=null;};
+  $("eok").onclick=function(){
+    if(!db||!eim)return;render(true);
+    var u=ec.toDataURL("image/webp",0.85);if(u.indexOf("image/webp")<0)u=ec.toDataURL("image/png");
+    ed.classList.add("hide");eim=null;setStatus("kan sawb sticker...");
+    db.doc("stickers/"+newId()).set({img:u,uid:uid,ts:Date.now()}).then(function(){setStatus("");}).catch(function(){setStatus("ma tsawbch sticker");});
+  };
+  var fp=document.getElementById("fp"),sf=document.getElementById("sf");
+  function newId(){return Date.now()+"-"+Math.random().toString(36).slice(2,7);}
+  function sendSticker(id){
+    if(!db)return;var ts=Date.now();
+    db.doc("messages/"+newId()).set({sid:id,nick:nick,uid:uid,ts:ts}).catch(function(){setStatus("ma tsayfetch sticker");});
+  }
+  sf.addEventListener("change",function(){
+    var file=sf.files&&sf.files[0];sf.value="";if(!file||!db)return;
+    setStatus("kan sawb sticker...");
+    var r=new FileReader();
+    r.onload=function(){
+      var im=new Image();
+      im.onload=function(){
+        openEditor(im);setStatus("");
+      };
+      im.onerror=function(){setStatus("had tswira ma khdamach");};
+      im.src=r.result;
+    };
+    r.readAsDataURL(file);
+  });
+  function pickFont(k){
+    myFont=k;try{localStorage.setItem("so_font",k);}catch(e){}
+    inp.style.fontFamily=fam(uid);buildFp();if(lastDocs)render(lastDocs);
+    if(db&&uid){db.doc("fonts/"+uid).set({k:k}).catch(function(){});}
+  }
+  function buildFp(){
+    fp.textContent="";
+    Object.keys(FONTS).forEach(function(k){
+      var b=document.createElement("button");b.type="button";b.textContent=FONTS[k][0]+" 123";
+      b.style.fontFamily=FONTS[k][1]+",sans-serif";if(k===myFont)b.className="sel";
+      b.onclick=function(){pickFont(k);};fp.appendChild(b);
+    });
+  }
+  document.getElementById("fbtn").onclick=function(){fp.classList.toggle("hide");};
+  buildFp();inp.style.fontFamily=fam(uid);
+  var kb=document.getElementById("kb"),caps=false,mode="a";
+  function key(label,cls,fn){var b=document.createElement("button");b.type="button";b.className="k "+(cls||"");b.textContent=label;
+    b.addEventListener("mousedown",function(e){e.preventDefault();});b.addEventListener("click",fn);return b;}
+  function put(ch){inp.value+=caps?ch.toUpperCase():ch;if(caps){caps=false;build();}}
+  function build(){
+    kb.textContent="";
+    if(mode==="s"){
+      var sg=document.createElement("div");sg.className="sg";
+      sg.appendChild(key("+ \u{1F5BC}","s",function(){sf.click();}));
+      Object.keys(stMap).sort().forEach(function(id){
+        var sk=stMap[id],b2=key("","s"+(stDel&&sk.uid===uid?" del":""),function(){
+          if(stDel){if(sk.uid===uid&&db)db.doc("stickers/"+id).delete().catch(function(){});}
+          else sendSticker(id);
+        });
+        var ii=document.createElement("img");ii.src=sk.img;b2.appendChild(ii);sg.appendChild(b2);
+      });
+      kb.appendChild(sg);
+      var sl=document.createElement("div");sl.className="row";
+      sl.appendChild(key("ABC","w",function(){mode="a";build();}));
+      sl.appendChild(key("\u{1F5D1}","w"+(stDel?" on":""),function(){stDel=!stDel;build();}));
+      sl.appendChild(key("\u{1F600}","w",function(){mode="e";build();}));
+      kb.appendChild(sl);return;
+    }
+    if(mode==="e"){
+      var tr=document.createElement("div");tr.className="row";tr.style.flexWrap="wrap";
+      Object.keys(EM).forEach(function(t){tr.appendChild(key(t.split(" ")[0].slice(0,2),"t"+(t===etab?" on":""),function(){etab=t;build();}));});
+      kb.appendChild(tr);
+      var g=document.createElement("div");g.className="eg";
+      EM[etab].split(" ").forEach(function(e){g.appendChild(key(e,"e",function(){inp.value+=e;}));});
+      kb.appendChild(g);
+      var bl=document.createElement("div");bl.className="row";
+      bl.appendChild(key("ABC","w",function(){mode="a";build();}));
+      bl.appendChild(key("\u{1F5BC}","w",function(){mode="s";build();}));
+      bl.appendChild(key("space","sp",function(){inp.value+=" ";}));
+      bl.appendChild(key("\u232b","w",function(){inp.value=Array.from(inp.value).slice(0,-1).join("");}));
+      bl.appendChild(key("GO","go",function(){document.getElementById("f").requestSubmit();}));
+      kb.appendChild(bl);return;
+    }
+    var rows=mode==="a"?["qwertyuiop","asdfghjkl","^zxcvbnm<"]:["1234567890","-/:;()!?\"=","^.,'@_+&<"];
+    rows.forEach(function(r){
+      var d=document.createElement("div");d.className="row";
+      r.split("").forEach(function(c){
+        if(c==="^"){d.appendChild(key("⇧","w"+(caps?" on":""),function(){caps=!caps;build();}));}
+        else if(c==="<"){d.appendChild(key("⌫","w",function(){inp.value=Array.from(inp.value).slice(0,-1).join("");}));}
+        else{d.appendChild(key(mode==="a"&&caps?c.toUpperCase():c,"",function(){put(c);}));}
+      });
+      kb.appendChild(d);
+    });
+    var l=document.createElement("div");l.className="row";
+    l.appendChild(key(mode==="a"?"123":"ABC","w",function(){mode=mode==="a"?"n":"a";build();}));
+    l.appendChild(key("😀","w",function(){mode="e";build();}));
+    l.appendChild(key("\u{1F5BC}","w",function(){mode="s";build();}));
+    l.appendChild(key("space","sp",function(){inp.value+=" ";}));
+    l.appendChild(key("GO","go",function(){document.getElementById("f").requestSubmit();}));
+    kb.appendChild(l);
+  }
+  build();
+  var begun=false;
+  onAuthStateChanged(auth,function(u){
+    if(u){
+      $("lbox").classList.add("hide");$("gerr").textContent="";
+      if(begun)return;
+      if(nick){begun=true;$("nick").value=nick;start();}else{$("nbox").classList.remove("hide");}
+    }else{$("lbox").classList.remove("hide");$("nbox").classList.add("hide");}
+  });
+  $("login").onclick=function(){
+    $("gerr").textContent="";
+    signInWithEmailAndPassword(auth,$("em").value.trim(),$("pw").value).catch(function(){$("gerr").textContent="email wla mot de passe ghalat";});
+  };
+  $("pw").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("login").click();}});
+  window.addEventListener("offline",function(){setStatus("bla internet: messages ghay-tsiftou mn ba3d");});
+  window.addEventListener("online",function(){setStatus("");});
+})();
+</script>
+</body>
+</html>
